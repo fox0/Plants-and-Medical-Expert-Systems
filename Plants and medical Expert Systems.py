@@ -1,6 +1,12 @@
-from itertools import chain
-
+# -*- coding: utf-8 -*-
+import gettext
 from pyknow import *
+
+gettext.install('messages', './locales')
+try:
+    _
+except NameError:
+    _ = lambda x: x
 
 
 class Medic(Fact):
@@ -12,7 +18,6 @@ class tuber(Fact):
 
 
 class plantDiagnosis(KnowledgeEngine):
-
     @Rule(AND(Fact(tempreture='h'), Fact(humidty='n'),
               tuber(color='r'), tuber(apperance='s')))
     def black_heart(self):
@@ -34,10 +39,10 @@ class plantDiagnosis(KnowledgeEngine):
         print("The plant has early blight\n")
 
 
-class Engine (KnowledgeEngine):
+class Engine(KnowledgeEngine):
     @Rule(Medic(age=MATCH.age_1, sympotetes=MATCH.Low))
     def function_low_sugar(self, age_1, Low):
-        var = Low["shakiness"]+Low["hunger"]+Low["sweating"]+Low["headache"]+Low["pale"]
+        var = Low["shakiness"] + Low["hunger"] + Low["sweating"] + Low["headache"] + Low["pale"]
         if var > 2 and age_1 <= 5:
             print("The patient in risk of Low Sugar")
             while True:
@@ -57,7 +62,8 @@ class Engine (KnowledgeEngine):
 
     @Rule(Medic(age=MATCH.age_2, sympotetes=MATCH.High))
     def function_high_sugar(self, age_2, High):
-        var = High["thirst"] + High["blurred vision"] + High["headache"] + High["dry mouth"] + High["smelling breath"] + High["shortness of breath"]
+        var = High["thirst"] + High["blurred vision"] + High["headache"] + High["dry mouth"] + High["smelling breath"] + \
+              High["shortness of breath"]
         if var > 2 and age_2 <= 5:
             print("The patient in risk of High Sugar\n")
         elif age_2 > 5:
@@ -181,7 +187,7 @@ def mumps_checking():
     print("Please Enter Your Age Childerns are less than or equal to 5\n")
     while True:
         string_age = input("Enter Your Age : ")
-        if not(string_age.isdigit()):
+        if not (string_age.isdigit()):
             print("Invalid Input Please Try Again\n")
         else:
             age = int(string_age)
@@ -217,7 +223,7 @@ def measles_checking():
         print("Please Enter the Age Childrens are less than or Equal to 5")
         while True:
             string_age = input("Enter Your Age : ")
-            if not(string_age.isdigit()):
+            if not (string_age.isdigit()):
                 print("Invalid Input Please Try Again\n")
             else:
                 age_int = int(string_age)
@@ -238,7 +244,7 @@ def Flu_checking():
         print("You Do not Have Cold My dear No FLU\n")
     else:
         dictionary_values = {"conjunctives": 0, "strong body aches": 0, "weakness": 0,
-                             "vomiting": 0, "sore throat": 0, "sneezing":0}
+                             "vomiting": 0, "sore throat": 0, "sneezing": 0}
         for i in dictionary_values:
             print("Do You Suffer From " + i)
             while True:
@@ -252,7 +258,7 @@ def Flu_checking():
         print("We Need To Know Your Age \n")
         while True:
             string_age = input("Enter Your Age please : ")
-            if not(string_age.isdigit()):
+            if not (string_age.isdigit()):
                 print("Invalid Input please Try Again\n")
             else:
                 age_int = int(string_age)
@@ -327,18 +333,17 @@ def plants_expert_system():
     start()
 
 
-print("Welcome To Our Expert Systems\n")
-
-while 1:
-    print("1. Medical expert System \n2. The plants Expert System\n3. To Exit\n")
-    n = input("Your Choice : ")
-    if n == "1":
-        medical_expert_system()
-    elif n == "2":
-        plants_expert_system()
-    elif n == "3":
-        print("Thanks For Using Our Service Wish you All OK\nGood Bye\n")
-        break
-    else:
-        print("Enter Invalid input please Try Again\n\n")
-
+if __name__ == '__main__':
+    print(_("Welcome To Our Expert Systems\n"))
+    while 1:
+        print(_("1. Medical expert System \n2. The plants Expert System\n3. To Exit\n"))
+        n = input(_("Your Choice : "))
+        if n == "1":
+            medical_expert_system()
+        elif n == "2":
+            plants_expert_system()
+        elif n == "3":
+            print(_("Thanks For Using Our Service Wish you All OK\nGood Bye\n"))
+            break
+        else:
+            print(_("Enter Invalid input please Try Again\n\n"))
